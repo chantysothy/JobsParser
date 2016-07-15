@@ -35,10 +35,10 @@ namespace Jobs
             const string selector = "div.sr_row";
             
             // Perform the query to get all applicant's views
-            var cells = document.QuerySelectorAll(selector);
+            var views = document.QuerySelectorAll(selector);
             
             // We are only interested in the text - select it with LINQ
-            var titles = cells.Select(m => m.TextContent);
+            var titles = views.Select(m => m.TextContent);
 
             throw new NotImplementedException();
         }
