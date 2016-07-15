@@ -1,12 +1,12 @@
 ﻿namespace Jobs
 {
-    public class CategoryUrl
-    {
-        public CategoryUrl(string url)
-        {
-            Url = url;
-        }
+	public class CategoryUrl
+	{
+		public CategoryUrl(string url)
+		{
+			Url = url;
+		}
 
-        public string Url { get; }
-    }
+		public string Url { get; }
+	}
 }
