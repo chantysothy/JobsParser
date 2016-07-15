@@ -45,7 +45,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Applicant.cs" />
+    <Compile Include="Category.cs" />
+    <Compile Include="CategoryUrl.cs" />
+    <Compile Include="CategoryUrlFactory.cs" />
+    <Compile Include="DateParser.cs" />
     <Compile Include="JobsParser.cs" />
+    <Compile Include="JobsParserSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

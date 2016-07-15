@@ -6,37 +6,31 @@ using AngleSharp;
 
 namespace Jobs
 {
-    public interface ICategoryUrl
-    {
-        string Url { get; }
-    }
-
     public class JobsParser
     {
-        private readonly ICategoryUrl _categoryUrl;
+        private const string Selector = "div.sr_row";
 
-        public JobsParser(ICategoryUrl categoryUrl)
+        private readonly CategoryUrl _categoryUrl;
+
+        public JobsParser(JobsParserSettings settings)
         {
-            _categoryUrl = categoryUrl;
+            _categoryUrl = settings.CategoryUrl;
         }
 
-        public async Task<IReadOnlyCollection<Applicant>> Parse()
+        public async Task<IReadOnlyCollection<Applicant>> ParseAsync()
         {
             // Setup the configuration to support document loading
             var config = Configuration.Default.WithDefaultLoader();
-            
+
             // Load the names of all The Big Bang Theory episodes from Wikipedia
             var address = _categoryUrl.Url;
-            
+
             // Asynchronously get the document in a new context using the configuration
             var document = await BrowsingContext.New(config).OpenAsync(address);
             
-            //Applicant view
-            const string selector = "div.sr_row";
-            
             // Perform the query to get all applicant's views
-            var views = document.QuerySelectorAll(selector);
-            
+            var views = document.QuerySelectorAll(Selector);
+
             // We are only interested in the text - select it with LINQ
             var titles = views.Select(m => m.TextContent);
 
