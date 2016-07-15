@@ -2,6 +2,7 @@ namespace Jobs
 {
 	public class CategoryUrlFactory
 	{
+		private const string BaseUrl = "http://yaroslavl.job.ru/employer/search/";
 		private readonly Category _category;
 
 		public CategoryUrlFactory(Category category)
@@ -9,10 +10,11 @@ namespace Jobs
 			_category = category;
 		}
 
-		public CategoryUrl GetCategoryUrl()
+		public string GetCategoryUrl()
 		{
-			const string url = "http://yaroslavl.job.ru/employer/search/";
-			return new CategoryUrl(_category != Category.All ? url + $"?wrkfld={(int) _category}" : url);
+			var categoryId = (int) _category;
+
+			return categoryId < 0 ? BaseUrl : $"{BaseUrl}?wrkfld={categoryId}";
 		}
 	}
 }

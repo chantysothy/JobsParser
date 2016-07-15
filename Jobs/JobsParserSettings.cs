@@ -4,9 +4,9 @@
 	{
 		public JobsParserSettings(Category category)
 		{
-			CategoryUrl = new CategoryUrlFactory(category).GetCategoryUrl();
+			CategoryUri = new CategoryUrlFactory(category).GetCategoryUrl();
 		}
 
-		public CategoryUrl CategoryUrl { get; }
+		public string CategoryUri { get; }
 	}
 }
