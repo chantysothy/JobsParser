@@ -18,7 +18,7 @@ namespace Jobs.Parsers
 
 		public async Task<IEnumerable<Applicant>> ParseAsync()
 		{
-			var document = await new HtmlParser().ParseAsync(_settings.HtmlDataProvider.GetPage(_settings.CategoryUri));
+			var document = await new HtmlParser().ParseAsync(await _settings.HtmlDataProvider.GetPageAsync(_settings.CategoryUri));
 
 			// Perform the query to get all applicant's views
 			var views = document.QuerySelectorAll("div.sr_row");

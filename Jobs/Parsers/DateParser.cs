@@ -6,15 +6,22 @@ namespace Jobs.Parsers
 {
 	public class DateParser
 	{
-		public DateTime ParseString(string source)
+		private readonly string _source;
+
+		public DateParser(string source)
+		{
+			_source = source;
+		}
+
+		public DateTime ParseString()
 		{
 			var yearsString =
-				new StringBuilder(Regex.Match(source, "[0-9]{1,3} год[а]?|[0-9]{1,3} лет").Groups[0].Value)
+				new StringBuilder(Regex.Match(_source, "[0-9]{1,3} год[а]?|[0-9]{1,3} лет").Groups[0].Value)
 					.Replace(" года", "")
 					.Replace(" год", "")
 					.Replace(" лет", "")
 					.ToString();
-			var monthsString = new StringBuilder(Regex.Match(source, "[0-9]{1,3} мес€ц(ев)?[а]?").Groups[0].Value)
+			var monthsString = new StringBuilder(Regex.Match(_source, "[0-9]{1,3} мес€ц(ев)?[а]?").Groups[0].Value)
 				.Replace(" мес€цев", "")
 				.Replace(" мес€ца", "")
 				.Replace(" мес€ц", "")

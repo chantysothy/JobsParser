@@ -90,7 +90,7 @@ namespace Jobs.Parsers
 		{
 			return infoBlock.Length < 2
 				? DateTime.Today
-				: new DateParser().ParseString(infoBlock[1]);
+				: new DateParser(infoBlock[1]).ParseString();
 		}
 
 		private static int GetJobsCount(string[] infoBlock)
@@ -141,7 +141,7 @@ namespace Jobs.Parsers
 			if (jobDescription.Length > 1)
 			{
 				var jobInfo = jobDescription[1].InnerHtml.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
-				job.ExperienceStart = new DateParser().ParseString(jobInfo[0]);
+				job.ExperienceStart = new DateParser(jobInfo[0]).ParseString();
 				if (jobInfo.Length > 1)
 					job.Company = jobInfo[1];
 			}

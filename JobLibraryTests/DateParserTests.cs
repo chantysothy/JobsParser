@@ -7,18 +7,11 @@ namespace JobLibraryTests
 	[TestClass]
 	public class DateParserTests
 	{
-		private DateParser _dateParser;
-
-		[TestInitialize]
-		public void Init()
-		{
-			_dateParser = new DateParser();
-		}
 
 		[TestMethod]
 		public void FoundMonth_1()
 		{
-			var date = _dateParser.ParseString("1 месяц");
+			var date = new DateParser("1 месяц").ParseString();
 
 			var expected = DateTime.UtcNow.AddMonths(-1);
 
@@ -29,7 +22,7 @@ namespace JobLibraryTests
 		[TestMethod]
 		public void FoundMonth_2()
 		{
-			var date = _dateParser.ParseString("2 месяца");
+			var date = new DateParser("2 месяца").ParseString();
 
 			var expected = DateTime.UtcNow.AddMonths(-2);
 
@@ -40,7 +33,7 @@ namespace JobLibraryTests
 		[TestMethod]
 		public void FoundMonth_3()
 		{
-			var date = _dateParser.ParseString("10 месяцев");
+			var date = new DateParser("10 месяцев").ParseString();
 
 			var expected = DateTime.UtcNow.AddMonths(-10);
 
@@ -51,7 +44,7 @@ namespace JobLibraryTests
 		[TestMethod]
 		public void FoundYear_1()
 		{
-			var date = _dateParser.ParseString("1 год");
+			var date = new DateParser("1 год").ParseString();
 
 			var now = DateTime.UtcNow.AddYears(-1);
 
@@ -62,7 +55,7 @@ namespace JobLibraryTests
 		[TestMethod]
 		public void FoundYear_2()
 		{
-			var date = _dateParser.ParseString("2 года");
+			var date = new DateParser("2 года").ParseString();
 
 			var now = DateTime.UtcNow.AddYears(-2);
 
@@ -73,7 +66,7 @@ namespace JobLibraryTests
 		[TestMethod]
 		public void FoundYear_3()
 		{
-			var date = _dateParser.ParseString("10 лет");
+			var date = new DateParser("10 лет").ParseString();
 
 			var now = DateTime.UtcNow.AddYears(-10);
 
@@ -84,7 +77,7 @@ namespace JobLibraryTests
 		[TestMethod]
 		public void ReturnNow_1()
 		{
-			var date = _dateParser.ParseString("0 месяцев");
+			var date = new DateParser("0 месяцев").ParseString();
 
 			var expected = DateTime.UtcNow;
 
@@ -95,7 +88,7 @@ namespace JobLibraryTests
 		[TestMethod]
 		public void ReturnNow_2()
 		{
-			var date = _dateParser.ParseString("фывафыафыа фыа фыа 123 фыва");
+			var date = new DateParser("фывафыафыа фыа фыа 123 фыва").ParseString();
 
 			var expected = DateTime.UtcNow;
 
@@ -106,7 +99,7 @@ namespace JobLibraryTests
 		[TestMethod]
 		public void FoundYearAndMonth_1()
 		{
-			var date = _dateParser.ParseString("23 года и 1 месяц");
+			var date = new DateParser("23 года и 1 месяц").ParseString();
 
 			var expected = DateTime.UtcNow.AddYears(-23).AddMonths(-1);
 
@@ -117,7 +110,7 @@ namespace JobLibraryTests
 		[TestMethod]
 		public void FoundYearAndMonth_2()
 		{
-			var date = _dateParser.ParseString("1 год и 9 месяцев");
+			var date = new DateParser("1 год и 9 месяцев").ParseString();
 
 			var expected = DateTime.UtcNow.AddYears(-1).AddMonths(-9);
 
@@ -128,7 +121,7 @@ namespace JobLibraryTests
 		[TestMethod]
 		public void FoundYearAndMonth_3()
 		{
-			var date = _dateParser.ParseString("20 лет и 2 месяца");
+			var date = new DateParser("20 лет и 2 месяца").ParseString();
 
 			var expected = DateTime.UtcNow.AddYears(-20).AddMonths(-2);
 
