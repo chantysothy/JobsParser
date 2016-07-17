@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -16,15 +16,15 @@ namespace Jobs.Parsers
 		public DateTime ParseString()
 		{
 			var yearsString =
-				new StringBuilder(Regex.Match(_source, "[0-9]{1,3} год[а]?|[0-9]{1,3} лет").Groups[0].Value)
-					.Replace(" года", "")
-					.Replace(" год", "")
-					.Replace(" лет", "")
+				new StringBuilder(Regex.Match(_source, "[0-9]{1,3} РіРѕРґ[Р°]?|[0-9]{1,3} Р»РµС‚").Groups[0].Value)
+					.Replace(" РіРѕРґР°", "")
+					.Replace(" РіРѕРґ", "")
+					.Replace(" Р»РµС‚", "")
 					.ToString();
-			var monthsString = new StringBuilder(Regex.Match(_source, "[0-9]{1,3} месяц(ев)?[а]?").Groups[0].Value)
-				.Replace(" месяцев", "")
-				.Replace(" месяца", "")
-				.Replace(" месяц", "")
+			var monthsString = new StringBuilder(Regex.Match(_source, "[0-9]{1,3} РјРµСЃВ¤С†(РµРІ)?[Р°]?").Groups[0].Value)
+				.Replace(" РјРµСЃВ¤С†РµРІ", "")
+				.Replace(" РјРµСЃВ¤С†Р°", "")
+				.Replace(" РјРµСЃВ¤С†", "")
 				.ToString();
 
 
