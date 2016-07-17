@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using Jobs.Helpers;
 
 namespace Jobs.Models
@@ -57,20 +58,37 @@ namespace Jobs.Models
 
 		public override string ToString()
 		{
-			return $"\n{new string('-', 70)}\n" +
-			       $"Position: {Position} | Salary: {Salary} | Publiched Date: {PublichedDate}" +
-			       $"\n\tSex: {Sex}, " +
-			       $"\n\tAge: {Age}" +
-			       $"\n\tEducation: {Education.GetDescription()}, " +
-			       $"\n\tJobsCount: {JobsCount}" +
-			       $"\n\tSummary Experience: {SummaryExperience}" +
-			       $"\n\tWork Now: {JobNow}" +
-			       $"\n\tWork Before: {JobBefore}" +
-			       $"\n\tUrl: {Url}" +
-			       $"\n\tCity: {City}" +
-			       $"\n\tCitizenship: {Citizenship}" +
-			       $"\n\tReady to move: " + (ReadyToMove == true ? "Yes" : "No") +
-			       $"\n{new string('-', 70)}";
+			var representation = new StringBuilder($"{new string('-', 70)}\n");
+
+			representation.AppendLine($"Position: {Position} | Salary: {Salary} | Publiched Date: {PublichedDate}");
+			if(Sex != Sex.Unknown)
+				representation.AppendLine($"\tSex: {Sex}, ");
+			if(Age != null)
+				representation.AppendLine($"\tAge: {Age}");
+			if(Education != EducationType.Unknown)
+				representation.AppendLine($"\tEducation: {Education.GetDescription()}, ");
+			if(JobsCount != null)
+				representation.AppendLine($"\tJobsCount: {JobsCount}");
+			if(SummaryExperience != null)
+				representation.AppendLine($"\tSummary Experience: {SummaryExperience}");
+			if(JobNow != null)
+				representation.AppendLine($"\tJob Now: {JobNow}");
+			if(JobBefore != null)
+				representation.AppendLine($"\tJob Before: {JobBefore}");
+
+			representation.AppendLine($"\tUrl: {Url}");
+
+			if (ImageUrl != null)
+				representation.AppendLine($"\tImage Url: {ImageUrl}");
+			if (City != null)
+				representation.AppendLine($"\tCity: {City}");
+			if (Citizenship != null)
+				representation.AppendLine($"\tCitizenship: {Citizenship}");
+			if (ReadyToMove != null)
+				representation.AppendLine("\tReady to move: " + (ReadyToMove == true ? "Yes" : "No"));
+
+			representation.AppendLine($"{new string('-', 70)}");
+			return representation.ToString();
 		}
 
 		public override bool Equals(object obj)
