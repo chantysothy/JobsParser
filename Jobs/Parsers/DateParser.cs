@@ -21,10 +21,10 @@ namespace Jobs.Parsers
 					.Replace(" год", "")
 					.Replace(" лет", "")
 					.ToString();
-			var monthsString = new StringBuilder(Regex.Match(_source, "[0-9]{1,3} мес¤ц(ев)?[а]?").Groups[0].Value)
-				.Replace(" мес¤цев", "")
-				.Replace(" мес¤ца", "")
-				.Replace(" мес¤ц", "")
+			var monthsString = new StringBuilder(Regex.Match(_source, "[0-9]{1,3} месяц(ев)?[а]?").Groups[0].Value)
+				.Replace(" месяцев", "")
+				.Replace(" месяца", "")
+				.Replace(" месяц", "")
 				.ToString();
 
 
