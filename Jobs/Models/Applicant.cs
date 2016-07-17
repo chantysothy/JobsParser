@@ -3,7 +3,7 @@ using Jobs.Helpers;
 
 namespace Jobs.Models
 {
-	public sealed class Applicant
+	public sealed class Applicant : IEquatable<Applicant>
 	{
 		internal Applicant()
 		{
@@ -46,6 +46,20 @@ namespace Jobs.Models
 		public string Citizenship { get; internal set; }
 		public bool ReadyToMove { get; internal set; }
 
+		public bool Equals(Applicant other)
+		{
+			if (ReferenceEquals(null, other))
+				return false;
+			if (ReferenceEquals(this, other))
+				return true;
+			return string.Equals(ImageUrl, other.ImageUrl) && Salary == other.Salary && string.Equals(Position, other.Position) &&
+			       Sex == other.Sex && Age == other.Age && JobsCount == other.JobsCount &&
+			       SummaryExperience.Equals(other.SummaryExperience) && Equals(JobBefore, other.JobBefore) &&
+			       Equals(JobNow, other.JobNow) && PublichedDate.Equals(other.PublichedDate) && Equals(Url, other.Url) &&
+			       Education == other.Education && string.Equals(City, other.City) &&
+			       string.Equals(Citizenship, other.Citizenship) && ReadyToMove == other.ReadyToMove;
+		}
+
 		public override string ToString()
 		{
 			return $"\n{new string('-', 70)}\n" +
@@ -62,6 +76,38 @@ namespace Jobs.Models
 			       $"\n\tCitizenship: {Citizenship}" +
 			       $"\n\tReady to move: " + (ReadyToMove ? "Yes" : "No") +
 			       $"\n{new string('-', 70)}";
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(null, obj))
+				return false;
+			if (ReferenceEquals(this, obj))
+				return true;
+			return obj is Applicant && Equals((Applicant) obj);
+		}
+
+		public override int GetHashCode()
+		{
+			unchecked
+			{
+				var hashCode = ImageUrl?.GetHashCode() ?? 0;
+				hashCode = (hashCode*397) ^ Salary.GetHashCode();
+				hashCode = (hashCode*397) ^ (Position?.GetHashCode() ?? 0);
+				hashCode = (hashCode*397) ^ (int) Sex;
+				hashCode = (hashCode*397) ^ Age.GetHashCode();
+				hashCode = (hashCode*397) ^ JobsCount;
+				hashCode = (hashCode*397) ^ SummaryExperience.GetHashCode();
+				hashCode = (hashCode*397) ^ (JobBefore?.GetHashCode() ?? 0);
+				hashCode = (hashCode*397) ^ (JobNow?.GetHashCode() ?? 0);
+				hashCode = (hashCode*397) ^ PublichedDate.GetHashCode();
+				hashCode = (hashCode*397) ^ (Url?.GetHashCode() ?? 0);
+				hashCode = (hashCode*397) ^ (int) Education;
+				hashCode = (hashCode*397) ^ (City?.GetHashCode() ?? 0);
+				hashCode = (hashCode*397) ^ (Citizenship?.GetHashCode() ?? 0);
+				hashCode = (hashCode*397) ^ ReadyToMove.GetHashCode();
+				return hashCode;
+			}
 		}
 	}
 }

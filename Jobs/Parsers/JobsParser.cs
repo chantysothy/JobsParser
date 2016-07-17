@@ -18,9 +18,10 @@ namespace Jobs.Parsers
 
 		public async Task<IEnumerable<Applicant>> ParseAsync()
 		{
-			var document = await new HtmlParser().ParseAsync(await _settings.HtmlDataProvider.GetPageAsync(_settings.CategoryUri));
+			var html = await _settings.HtmlDataProvider.GetPageAsync(_settings.CategoryUri);
 
-			// Perform the query to get all applicant's views
+			var document = await new HtmlParser().ParseAsync(html);
+
 			var views = document.QuerySelectorAll("div.sr_row");
 
 			var applicants = new ConcurrentQueue<Applicant>();
@@ -31,6 +32,13 @@ namespace Jobs.Parsers
 			}
 
 			return applicants;
+		}
+
+		public IEnumerable<Applicant> Parse()
+		{
+			var applicants = ParseAsync();
+			applicants.Wait();
+			return applicants.Result;
 		}
 
 		/// <summary>

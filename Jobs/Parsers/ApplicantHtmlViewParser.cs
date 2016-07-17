@@ -151,7 +151,7 @@ namespace Jobs.Parsers
 
 		private static bool GetReadyToMoveStatus(IEnumerable<string> infoSections)
 		{
-			return infoSections.Any(section => section.Contains("готов к переезду"));
+			return infoSections.Any(section => section.Contains("готов к переезду") || section.Contains("готова к переезду"));
 		}
 
 		private static string GetCitizenship(IEnumerable<string> infoSections)
