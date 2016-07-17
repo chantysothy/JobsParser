@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Jobs;
 
@@ -11,12 +10,14 @@ namespace TestApp
 		private static void Main()
 		{
 			Console.WriteLine("Starting fetching data...");
-			Console.WriteLine(new string('-', 20));
+			Console.WriteLine(new string('=', 70));
+			Console.WriteLine();
 
 			var mainTask = RunAsync();
 			mainTask.Wait(TimeSpan.FromMinutes(5));
 
-			Console.WriteLine(new string('-', 20));
+			Console.WriteLine();
+			Console.WriteLine(new string('=', 70));
 			Console.WriteLine("Exiting... Press any key to close...");
 			Console.ReadKey();
 		}

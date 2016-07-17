@@ -1,4 +1,6 @@
-﻿namespace Jobs
+﻿using Jobs.Factories;
+
+namespace Jobs
 {
 	public class JobsParserSettings
 	{
