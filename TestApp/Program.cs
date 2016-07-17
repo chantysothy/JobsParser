@@ -26,7 +26,7 @@ namespace TestApp
 
 		private static async Task RunAsync()
 		{
-			var applicantsParser = new JobsParser(new JobsParserSettings(Category.Industry, new DefaultHtmlDataProvider()));
+			var applicantsParser = new JobsParser(new JobsParserSettings(Category.All, new DefaultHtmlDataProvider()));
 			var applicants = (await applicantsParser.ParseAsync()).ToArray();
 
 			foreach (var applicant in applicants)

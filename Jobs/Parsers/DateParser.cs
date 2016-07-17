@@ -34,7 +34,7 @@ namespace Jobs.Parsers
 			int months;
 			int.TryParse(monthsString, out months);
 
-			return DateTime.UtcNow.AddYears(-years).AddMonths(-months);
+			return DateTime.Today.AddYears(-years).AddMonths(-months);
 		}
 	}
 }

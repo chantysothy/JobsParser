@@ -254,7 +254,15 @@ namespace Jobs.Parsers
 		private static DateTime GetPublishedDate(IElement avatarCol)
 		{
 			var dateString = avatarCol.GetElementsByClassName("sr_date")[0].InnerHtml;
-			return DateTime.Parse(dateString);
+			switch (dateString.ToLower())
+			{
+				case "вчера":
+					return DateTime.Today.AddDays(-1);
+				case "сегодня":
+					return DateTime.Today;
+				default:
+					return DateTime.Parse(dateString);
+			}
 		}
 	}
 }
