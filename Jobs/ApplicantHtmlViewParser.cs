@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using AngleSharp.Css.Values;
 using AngleSharp.Dom;
 using Jobs.Factories;
 using Jobs.Models;
@@ -60,27 +59,81 @@ namespace Jobs
 			applicant.ReadyToMove = GetReadyToMoveStatus(infoSections);
 
 			var infoBlocks = srDescription.GetElementsByTagName("dl");
-			if (infoBlocks.Length > 0)
-			{
-				applicant.JobNow = GetJobNow(infoBlocks[0]);
-				/*applicant.JobBefore = GetJobBefore(infoBlocks);
-				applicant.JobsCount = GetJobsCount(infoBlocks);
-				applicant.SummaryExperience = GetSummaryExperience(infoBlocks);*/
-			}
+
+			if (infoBlocks.Length <= 0)
+				return applicant;
+
+			applicant.JobNow = GetJobNow(infoBlocks);
+			applicant.JobBefore = GetJobBefore(infoBlocks);
+
+			IElement infoBlock;
+			if (!JobInfoExists(infoBlocks, out infoBlock))
+				return applicant;
+
+			var str = infoBlock.GetElementsByClassName("grey")[0].GetElementsByTagName("i")[0].InnerHtml;
+			var separatedValues = GetSeparatedValuesForJobsCountAndSummaryExperience(str);
+
+			applicant.JobsCount = GetJobsCount(separatedValues);
+			applicant.SummaryExperience = GetSummaryExperience(separatedValues);
 
 			return applicant;
 		}
 
-		private Job GetJobNow(IElement infoBlock)
+		private static bool JobInfoExists(IEnumerable<IElement> infoBlocks, out IElement block)
 		{
-			if (infoBlock.GetElementsByTagName("dt")[0].InnerHtml != "Сейчас")
+			block = infoBlocks.FirstOrDefault(item => item.GetElementsByTagName("dt")[0].InnerHtml == "&nbsp;");
+			return block != null;
+		}
+
+		private static DateTime GetSummaryExperience(string[] infoBlock)
+		{
+			return infoBlock.Length < 2 
+				? DateTime.Today 
+				: new DateParser().ParseString(infoBlock[1]);
+		}
+
+		private static int GetJobsCount(string[] infoBlock)
+		{
+			if (infoBlock.Length < 1)
+				return 0;
+			var strCount = Regex.Match(infoBlock[0], "[0-9]{1,3}").Value;
+
+			int count;
+			int.TryParse(strCount, out count);
+
+			return count;
+		}
+
+		private static string[] GetSeparatedValuesForJobsCountAndSummaryExperience(string source)
+		{
+			return source.Split(new[] { " работы за " }, StringSplitOptions.RemoveEmptyEntries);
+		}
+
+		private static Job GetJobBefore(IEnumerable<IElement> infoBlocks)
+		{
+			var infoBlock = infoBlocks.FirstOrDefault(item => item.GetElementsByTagName("dt")[0].InnerHtml == "Ранее");
+			if (infoBlock == null)
 				return null;
 
+			return GetJob(infoBlock);
+		}
+
+		private static Job GetJobNow(IEnumerable<IElement> infoBlocks)
+		{
+			var infoBlock = infoBlocks.FirstOrDefault(item => item.GetElementsByTagName("dt")[0].InnerHtml == "Сейчас");
+			return infoBlock != null
+				? GetJob(infoBlock)
+				: null;
+		}
+
+		private static Job GetJob(IElement infoBlock)
+		{
 			var job = new Job();
 
 			var jobContent = infoBlock.GetElementsByTagName("dd")[0];
 			var jobDescription = jobContent.GetElementsByTagName("div");
 			job.Position = jobDescription[0].GetElementsByTagName("b")[0].InnerHtml;
+
 			if (job.Position.Contains("У соискателя нет опыта работы!"))
 				return job;
 
@@ -88,7 +141,7 @@ namespace Jobs
 			{
 				var jobInfo = jobDescription[1].InnerHtml.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
 				job.ExperienceStart = new DateParser().ParseString(jobInfo[0]);
-				if(jobInfo.Length > 1)
+				if (jobInfo.Length > 1)
 					job.Company = jobInfo[1];
 			}
 
