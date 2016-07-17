@@ -1,4 +1,7 @@
-﻿namespace Jobs.Factories
+﻿using Jobs.Helpers;
+using Jobs.Models;
+
+namespace Jobs.Factories
 {
 	public class EducationTypeFactory
 	{
@@ -11,11 +14,11 @@
 
 		public EducationType GetEducationType()
 		{
-			if(_educationString == null)
+			if (_educationString == null)
 				return EducationType.Unknown;
 
 			var incompleteHigherEducation = EducationType.IncompleteHigherEducation.GetDescription();
-			if(_educationString.Contains(incompleteHigherEducation))
+			if (_educationString.Contains(incompleteHigherEducation))
 				return EducationType.IncompleteHigherEducation;
 
 			var incompleteSecondaryEducation = EducationType.IncompleteSecondaryEducation.GetDescription();
@@ -38,16 +41,15 @@
 			if (_educationString.Contains(higherEducation))
 				return EducationType.HigherEducation;
 
-			var mba = EducationType.MBA.GetDescription();
+			var mba = EducationType.Mba.GetDescription();
 			if (_educationString.Contains(mba))
-				return EducationType.MBA;
+				return EducationType.Mba;
 
 			var academicDegree = EducationType.AcademicDegree.GetDescription();
 			if (_educationString.Contains(academicDegree))
 				return EducationType.AcademicDegree;
 
 			return EducationType.Unknown;
-
 		}
 	}
 }

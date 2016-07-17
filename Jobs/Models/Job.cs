@@ -20,7 +20,8 @@ namespace Jobs.Models
 
 		public override string ToString()
 		{
-			return $"Position: {Position}, Experience Start: {ExperienceStart}" + (!string.IsNullOrWhiteSpace(Company) ? $", Company: {Company} " : "");
+			return $"Position: {Position}, Experience Start: {ExperienceStart}" +
+			       (!string.IsNullOrWhiteSpace(Company) ? $", Company: {Company} " : "");
 		}
 	}
 }

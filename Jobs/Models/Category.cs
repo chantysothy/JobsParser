@@ -1,4 +1,4 @@
-﻿namespace Jobs
+﻿namespace Jobs.Models
 {
 	public enum Category
 	{

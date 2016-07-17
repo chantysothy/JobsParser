@@ -5,9 +5,10 @@ using System.Text;
 using System.Text.RegularExpressions;
 using AngleSharp.Dom;
 using Jobs.Factories;
+using Jobs.Helpers;
 using Jobs.Models;
 
-namespace Jobs
+namespace Jobs.Parsers
 {
 	public class ApplicantHtmlViewParser
 	{
@@ -87,8 +88,8 @@ namespace Jobs
 
 		private static DateTime GetSummaryExperience(string[] infoBlock)
 		{
-			return infoBlock.Length < 2 
-				? DateTime.Today 
+			return infoBlock.Length < 2
+				? DateTime.Today
 				: new DateParser().ParseString(infoBlock[1]);
 		}
 
@@ -173,7 +174,7 @@ namespace Jobs
 				EducationType.IncompleteHigherEducation.GetDescription(),
 				EducationType.Student.GetDescription(),
 				EducationType.HigherEducation.GetDescription(),
-				EducationType.MBA.GetDescription(),
+				EducationType.Mba.GetDescription(),
 				EducationType.AcademicDegree.GetDescription()
 			};
 

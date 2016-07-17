@@ -1,7 +1,6 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
-namespace Jobs
+namespace Jobs.Models
 {
 	public enum EducationType
 	{
@@ -30,6 +29,6 @@ namespace Jobs
 		AcademicDegree,
 
 		[Description("MBA")]
-		MBA
+		Mba
 	}
 }

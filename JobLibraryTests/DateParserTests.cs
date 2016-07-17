@@ -1,5 +1,5 @@
 ﻿using System;
-using Jobs;
+using Jobs.Parsers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace JobLibraryTests

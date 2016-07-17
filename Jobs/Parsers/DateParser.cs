@@ -2,7 +2,7 @@ using System;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Jobs
+namespace Jobs.Parsers
 {
 	public class DateParser
 	{

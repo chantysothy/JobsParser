@@ -1,3 +1,5 @@
+using Jobs.Models;
+
 namespace Jobs.Factories
 {
 	public class CategoryUrlFactory

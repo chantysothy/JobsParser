@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace Jobs
+namespace Jobs.Helpers
 {
 	public static class StructsExtend
 	{

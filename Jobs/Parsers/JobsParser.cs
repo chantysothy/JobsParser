@@ -1,34 +1,27 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AngleSharp;
 using AngleSharp.Dom;
+using AngleSharp.Parser.Html;
 using Jobs.Models;
 
-namespace Jobs
+namespace Jobs.Parsers
 {
 	public class JobsParser
 	{
-		private const string SiteUrl = "https://job.ru";
-		private const string AllViewsSelector = "div.sr_row";
-
-		private readonly string _categoryUri;
+		private readonly JobsParserSettings _settings;
 
 		public JobsParser(JobsParserSettings settings)
 		{
-			_categoryUri = settings.CategoryUri;
+			_settings = settings;
 		}
 
 		public async Task<IEnumerable<Applicant>> ParseAsync()
 		{
-			// Setup the configuration to support document loading
-			var config = Configuration.Default.WithDefaultLoader().WithCookies();
-			
-			// Asynchronously get the document in a new context using the configuration
-			var document = await BrowsingContext.New(config).OpenAsync(_categoryUri);
+			var document = await new HtmlParser().ParseAsync(_settings.HtmlDataProvider.GetPage(_settings.CategoryUri));
 
 			// Perform the query to get all applicant's views
-			var views = document.QuerySelectorAll(AllViewsSelector);
+			var views = document.QuerySelectorAll("div.sr_row");
 
 			var applicants = new ConcurrentQueue<Applicant>();
 
@@ -114,7 +107,7 @@ namespace Jobs
 		/// </returns>
 		private static Task<Applicant> ParseView(IElement view)
 		{
-			return Task<Applicant>.Factory.StartNew(() => new ApplicantHtmlViewParser(view, SiteUrl).Parse());
+			return Task<Applicant>.Factory.StartNew(() => new ApplicantHtmlViewParser(view, "https://job.ru").Parse());
 		}
 	}
 }

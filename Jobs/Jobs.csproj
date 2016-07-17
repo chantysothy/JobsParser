@@ -44,15 +44,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicantHtmlViewParser.cs" />
-    <Compile Include="EducationType.cs" />
+    <Compile Include="DefaultHtmlDataProvider.cs" />
+    <Compile Include="Parsers\ApplicantHtmlViewParser.cs" />
+    <Compile Include="Models\EducationType.cs" />
     <Compile Include="Factories\EducationTypeFactory.cs" />
-    <Compile Include="StructsExtend.cs" />
+    <Compile Include="IHtmlDataProvider.cs" />
+    <Compile Include="Helpers\StructsExtend.cs" />
     <Compile Include="Models\Applicant.cs" />
-    <Compile Include="Category.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Factories\CategoryUrlFactory.cs" />
-    <Compile Include="DateParser.cs" />
-    <Compile Include="JobsParser.cs" />
+    <Compile Include="Parsers\DateParser.cs" />
+    <Compile Include="Parsers\JobsParser.cs" />
     <Compile Include="JobsParserSettings.cs" />
     <Compile Include="Models\Job.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -61,6 +63,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Jobs;
+using Jobs.Models;
+using Jobs.Parsers;
 
 namespace TestApp
 {
@@ -24,7 +26,7 @@ namespace TestApp
 
 		private static async Task RunAsync()
 		{
-			var applicantsParser = new JobsParser(new JobsParserSettings(Category.Industry));
+			var applicantsParser = new JobsParser(new JobsParserSettings(Category.Industry, new DefaultHtmlDataProvider()));
 			var applicants = (await applicantsParser.ParseAsync()).ToArray();
 
 			foreach (var applicant in applicants)

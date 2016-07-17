@@ -1,4 +1,5 @@
 ﻿using System;
+using Jobs.Helpers;
 
 namespace Jobs.Models
 {
@@ -29,24 +30,6 @@ namespace Jobs.Models
 			ReadyToMove = readyToMove;
 		}
 
-		public override string ToString()
-		{
-			return $"\n{new string('-', 70)}\n" +
-			       $"Position: {Position} | Salary: {Salary} | Publiched Date: {PublichedDate}" +
-			       $"\n\tSex: {Sex}, " +
-			       $"\n\tAge: {Age}" +
-			       $"\n\tEducation: {Education.GetDescription()}, " +
-			       $"\n\tJobsCount: {JobsCount}" +
-			       $"\n\tSummary Experience: {SummaryExperience}" +
-				   $"\n\tWork Now: {JobNow}" +
-				   $"\n\tWork Before: {JobBefore}" +
-			       $"\n\tUrl: {Url}" +
-			       $"\n\tCity: {City}" +
-			       $"\n\tCitizenship: {Citizenship}" +
-			       $"\n\tReady to move: " + (ReadyToMove ? "Yes" : "No") +
-			       $"\n{new string('-', 70)}";
-		}
-
 		public string ImageUrl { get; internal set; }
 		public decimal Salary { get; internal set; }
 		public string Position { get; internal set; }
@@ -62,5 +45,23 @@ namespace Jobs.Models
 		public string City { get; internal set; }
 		public string Citizenship { get; internal set; }
 		public bool ReadyToMove { get; internal set; }
+
+		public override string ToString()
+		{
+			return $"\n{new string('-', 70)}\n" +
+			       $"Position: {Position} | Salary: {Salary} | Publiched Date: {PublichedDate}" +
+			       $"\n\tSex: {Sex}, " +
+			       $"\n\tAge: {Age}" +
+			       $"\n\tEducation: {Education.GetDescription()}, " +
+			       $"\n\tJobsCount: {JobsCount}" +
+			       $"\n\tSummary Experience: {SummaryExperience}" +
+			       $"\n\tWork Now: {JobNow}" +
+			       $"\n\tWork Before: {JobBefore}" +
+			       $"\n\tUrl: {Url}" +
+			       $"\n\tCity: {City}" +
+			       $"\n\tCitizenship: {Citizenship}" +
+			       $"\n\tReady to move: " + (ReadyToMove ? "Yes" : "No") +
+			       $"\n{new string('-', 70)}";
+		}
 	}
 }
