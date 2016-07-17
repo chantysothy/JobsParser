@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Jobs
@@ -16,8 +17,8 @@ namespace Jobs
 		{
 			using (var client = new WebClient())
 			{
-				return await client.DownloadStringTaskAsync(pageAddress);
-				;
+				var data = await client.DownloadDataTaskAsync(pageAddress);
+				return Encoding.UTF8.GetString(data);
 			}
 		}
 	}
