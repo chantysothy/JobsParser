@@ -56,28 +56,20 @@ namespace JobLibraryTests
 
 			var expected = new Applicant(
 				imageUrl:			null,
-				salary:				30000,
-				position:			"Инженер-технолог",
-				sex:				Sex.Female,
-				age:				45,
-				jobsCount:			2,
-				summaryExperience:	new DateParser("20 лет и 3 месяца").ParseString(),
-				jobBefore:			new Job(
-										"Инженер 1 кат",
-										new DateParser("15 лет и 6 месяцев").ParseString()
-									)
-									{ Company = "Военное Представительство МО РФ" },
-				jobNow:				new Job(
-										"Директор",
-										new DateParser("5 лет").ParseString()
-									)
-									{ Company = "Агентство недвижимости" },
-				publichedDate:		DateTime.Today.AddDays(-1),
-				url:				new Uri("https://job.ru/resume/3001906"),
-				education:			EducationType.HigherEducation,
-				city:				"г. Ярославль",
-				citizenship:		"гр. Россия",
-				readyToMove:		true);
+				salary:				70000,
+				position:			"Главный инженер",
+				sex:				Sex.Unknown,
+				age:				null,
+				jobsCount:			null,
+				summaryExperience:	null, 
+				jobBefore:			null,
+				jobNow:				null,
+				publichedDate:		DateTime.Parse("26.06.16"),
+				url:				new Uri("https://job.ru/resume/1575489"),
+				education:			EducationType.Unknown,
+				city:				null,
+				citizenship:		null,
+				readyToMove:		null);
 
 			Assert.AreEqual(expected, actual);
 		}

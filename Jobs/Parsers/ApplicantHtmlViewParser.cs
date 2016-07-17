@@ -53,6 +53,10 @@ namespace Jobs.Parsers
 					.ToString();
 				infoSections = info.Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries);
 			}
+
+			if (infoSections.Length == 0)
+				return applicant;
+
 			applicant.Age = GetAge(infoSections);
 			applicant.Education = GetEducation(infoSections);
 			applicant.City = GetCity(infoSections);
@@ -93,16 +97,15 @@ namespace Jobs.Parsers
 				: new DateParser(infoBlock[1]).ParseString();
 		}
 
-		private static int GetJobsCount(string[] infoBlock)
+		private static int? GetJobsCount(string[] infoBlock)
 		{
 			if (infoBlock.Length < 1)
 				return 0;
 			var strCount = Regex.Match(infoBlock[0], "[0-9]{1,3}").Value;
 
 			int count;
-			int.TryParse(strCount, out count);
 
-			return count;
+			return int.TryParse(strCount, out count) ? (int?) count : null;
 		}
 
 		private static string[] GetSeparatedValuesForJobsCountAndSummaryExperience(string source)
@@ -122,8 +125,13 @@ namespace Jobs.Parsers
 		private static Job GetJobNow(IEnumerable<IElement> infoBlocks)
 		{
 			var infoBlock = infoBlocks.FirstOrDefault(item => item.GetElementsByTagName("dt")[0].InnerHtml == "Сейчас");
-			return infoBlock != null
-				? GetJob(infoBlock)
+
+			if (infoBlock == null)
+				return null;
+
+			var job = GetJob(infoBlock);
+			return job.Position.ToLower() != "у соискателя нет опыта работы!"
+				? job
 				: null;
 		}
 

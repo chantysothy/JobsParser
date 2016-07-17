@@ -9,9 +9,9 @@ namespace Jobs.Models
 		{
 		}
 
-		public Applicant(string imageUrl, decimal salary, string position, Sex sex, ushort? age, int jobsCount,
-			DateTime summaryExperience, Job jobBefore, Job jobNow, DateTime publichedDate, Uri url, EducationType education,
-			string city, string citizenship, bool readyToMove)
+		public Applicant(string imageUrl, decimal salary, string position, Sex sex, ushort? age, int? jobsCount,
+			DateTime? summaryExperience, Job jobBefore, Job jobNow, DateTime publichedDate, Uri url, EducationType education,
+			string city, string citizenship, bool? readyToMove)
 		{
 			ImageUrl = imageUrl;
 			Salary = salary;
@@ -35,8 +35,8 @@ namespace Jobs.Models
 		public string Position { get; internal set; }
 		public Sex Sex { get; internal set; }
 		public ushort? Age { get; internal set; }
-		public int JobsCount { get; internal set; }
-		public DateTime SummaryExperience { get; internal set; }
+		public int? JobsCount { get; internal set; }
+		public DateTime? SummaryExperience { get; internal set; }
 		public Job JobBefore { get; internal set; }
 		public Job JobNow { get; internal set; }
 		public DateTime PublichedDate { get; internal set; }
@@ -44,7 +44,7 @@ namespace Jobs.Models
 		public EducationType Education { get; internal set; }
 		public string City { get; internal set; }
 		public string Citizenship { get; internal set; }
-		public bool ReadyToMove { get; internal set; }
+		public bool? ReadyToMove { get; internal set; }
 
 		public bool Equals(Applicant other)
 		{
@@ -52,12 +52,7 @@ namespace Jobs.Models
 				return false;
 			if (ReferenceEquals(this, other))
 				return true;
-			return string.Equals(ImageUrl, other.ImageUrl) && Salary == other.Salary && string.Equals(Position, other.Position) &&
-			       Sex == other.Sex && Age == other.Age && JobsCount == other.JobsCount &&
-			       SummaryExperience.Equals(other.SummaryExperience) && Equals(JobBefore, other.JobBefore) &&
-			       Equals(JobNow, other.JobNow) && PublichedDate.Equals(other.PublichedDate) && Equals(Url, other.Url) &&
-			       Education == other.Education && string.Equals(City, other.City) &&
-			       string.Equals(Citizenship, other.Citizenship) && ReadyToMove == other.ReadyToMove;
+			return string.Equals(ImageUrl, other.ImageUrl) && Salary == other.Salary && string.Equals(Position, other.Position) && Sex == other.Sex && Age == other.Age && JobsCount == other.JobsCount && SummaryExperience.Equals(other.SummaryExperience) && Equals(JobBefore, other.JobBefore) && Equals(JobNow, other.JobNow) && PublichedDate.Equals(other.PublichedDate) && Equals(Url, other.Url) && Education == other.Education && string.Equals(City, other.City) && string.Equals(Citizenship, other.Citizenship) && ReadyToMove == other.ReadyToMove;
 		}
 
 		public override string ToString()
@@ -74,7 +69,7 @@ namespace Jobs.Models
 			       $"\n\tUrl: {Url}" +
 			       $"\n\tCity: {City}" +
 			       $"\n\tCitizenship: {Citizenship}" +
-			       $"\n\tReady to move: " + (ReadyToMove ? "Yes" : "No") +
+			       $"\n\tReady to move: " + (ReadyToMove == true ? "Yes" : "No") +
 			       $"\n{new string('-', 70)}";
 		}
 
@@ -96,7 +91,7 @@ namespace Jobs.Models
 				hashCode = (hashCode*397) ^ (Position?.GetHashCode() ?? 0);
 				hashCode = (hashCode*397) ^ (int) Sex;
 				hashCode = (hashCode*397) ^ Age.GetHashCode();
-				hashCode = (hashCode*397) ^ JobsCount;
+				hashCode = (hashCode*397) ^ JobsCount.GetHashCode();
 				hashCode = (hashCode*397) ^ SummaryExperience.GetHashCode();
 				hashCode = (hashCode*397) ^ (JobBefore?.GetHashCode() ?? 0);
 				hashCode = (hashCode*397) ^ (JobNow?.GetHashCode() ?? 0);
